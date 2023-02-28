@@ -1,0 +1,33 @@
+@use "variable" as var;
+@use "mixin" as mix;
+
+/*----------------------------------------
+基本幅
+----------------------------------------*/
+.blContainer {
+    width: 85%;
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*----------------------------------------
+サブページレイアウト(サイドバーあり)
+----------------------------------------*/
+.pageContainer {
+    display: flex;
+    margin-top: 50px;
+    &__main {
+        flex: 1 1 800px;
+        margin-right: 80px;
+        @include mix.mq(var.$sm) {
+            margin-right: 0;
+        }
+    }
+    &__sidebar {
+        flex: 1 1 320px;
+    }
+    @include mix.mq(var.$sm) {
+        display: block;
+    }
+}

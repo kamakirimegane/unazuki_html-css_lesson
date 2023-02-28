@@ -1,0 +1,701 @@
+@charset "UTF-8";
+@use "reset";
+@use "base";
+@use "layout";
+@use "variable" as var;
+@use "mixin" as mix;
+@use "component";
+
+
+/*----------------------------------------
+ヘッダー
+----------------------------------------*/
+.header {
+    display: flex;
+    @include mix.mq (var.$lg){
+        height: 65px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 9999;
+        padding: 0 4% 0 4%;
+    }
+    &__title {
+        margin-top: 15px;
+        margin-right: auto;
+        @include mix.mq (var.$lg) {
+            margin-top: 5px;
+        }
+    }
+    &__pcMenu {
+        display : none;
+        @include mix.mq (var.$lg) {
+            display: block;
+        }
+    }
+    &__spMenu {
+        display : none;
+        @include mix.mq (var.$lg) {
+            display: block;
+        }
+    }
+}
+
+.siteTitle {
+    &__tagLine {
+        font-size: 0.6875rem;
+        margin-bottom: 5px;
+        @include mix.mq (var.$lg) {
+            margin-bottom: 0;
+        }
+    }
+    &__tagLine {
+        font-weight: lighter;
+        white-space: nowrap;
+    }
+    &__logo {
+        @include mix.mq (var.$lg) {
+            display: inline-block;
+            width: 110px;
+        }
+    }
+}
+
+.pcMenu {
+    @include mix.mq (var.$lg) {
+        display: none;
+    }
+    &__sub {
+        margin-bottom: 15px;
+    }
+}
+
+.subMenu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    &__recruitLink {
+        font-size: 0.875rem;
+        margin-right: 25px;
+        &:hover {
+            text-decoration: underline;//ホバーで下線を引く
+        }
+        i {
+            margin-left: 5px;
+            font-weight: bold;
+        }
+    }
+    &__shop {
+        display: flex;
+    }
+    &__shopLink {
+        width: 115px;
+        padding: 15px 27px;
+        background: var.$blue;
+        text-align: center;
+        border-radius: 0 0 5px 5px;
+        color: #fff;
+        white-space: nowrap;
+        gap: 10px;
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    &__shopLink:first-child {
+        margin-right: 10px;
+    }
+}
+
+.mainMenu {
+    margin-bottom: 15px;
+    &__list {
+        display: flex;
+    }
+    &__item {
+        width: 115px;
+        margin-right: 10px;
+        text-align: center;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var.$line_blue;
+        font-size: 0.9375rem;
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    &__label {
+        font-size: 0.625rem;
+        color: var.$blue;
+    }
+}
+
+/*----------------------------------------
+スマホメニュー(ハンバーガーメニュー)
+----------------------------------------*/
+.spMenu {
+    &__toggle {
+        position: absolute;
+        top: -200px;
+    }
+    &__toggle:checked ~ .spMenu__wrapper {
+        display: block;
+    }
+    &__toggle:focus-visible ~ .spMenu__hamburger {
+        box-shadow: 1px 1px 2px gray;
+    }
+    &__toggle:checked ~ .spMenu__hamburger {
+        .spMenu__hamburgerLine {
+            background: transparent;
+            &::before {
+                top: 50%;
+                transform: rotate(45deg);
+            }
+            &::after {
+                top: 50%;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+    &__hamburger {
+        width: 42px;
+        height: 40px;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
+    &__hamburgerLine {
+        background: var.$blue;
+        display: block;
+        width: 42px;
+        height: 2px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        &::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            width: 100%;
+            height: 2px;
+            background: var.$blue;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            width: 100%;
+            height: 2px;
+            background: var.$blue;
+        }
+    }
+    &__wrapper {
+        display: none;
+        overflow-y: scroll;
+        height: calc(100vh - 65px);
+        position: absolute;
+        top: 65px;
+        left: 0;
+        z-index: 9999;
+        width: 100%;
+        padding: 25px 4% 50px;
+        background: var.$bg_blue;
+
+    }
+}
+.mainSpMenu {
+    &__item {
+        margin-bottom: 50px;
+    }
+    &__list {
+        list-style:none;
+        border-bottom: 1px dotted var.$line_blue;
+    }
+    &__link {
+        display: block;
+        padding: .8em 3px;
+    }
+}
+
+.subSpMenu {
+    &__recruitLink {
+        display: block;
+        color: white;
+        text-align: center;
+        background: var.$sb_yellow;
+        padding: .8em 0 .6em;
+        border-radius: 3px;
+        margin-bottom: 2%;
+    }
+    &__shop {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__shopLink {
+        width: 48.5%;
+        color: white;
+        text-align: center;
+        background: var.$blue;
+        padding: .8em 0 .6em;
+        border-radius: 3px;
+    }
+}
+
+/*----------------------------------------
+main
+----------------------------------------*/
+.toppageMain {
+    @include mix.mq(var.$lg) {
+        margin-top: 65px;
+    }
+}
+
+/*----------------------------------------
+キービジュアル
+----------------------------------------*/
+.keyVisual {
+    position: relative;
+    &__inner {
+        display: flex;
+        align-items: center;
+        background: var.$bg_blue;
+        padding: 30px 130px;
+        padding-bottom: 50px;
+        @include mix.mq(var.$sm){
+            display: block;
+            padding: 30px 50px;
+            text-align: center;
+        }
+    }
+    &__imgArea {
+        padding-left: 50px;
+        margin-left: auto;
+        & img {
+            flex: 1 1 50%;
+        }
+        @include mix.mq(var.$sm) {
+            padding-left: 0px;
+            padding-top: 50px;
+        }
+    }
+    &__cath {
+        font-size: 3.75rem;
+        font-weight: bold;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        span {
+            color: var.$blue;
+        }
+    }
+    &__lead {
+        font-size: 0.875rem;
+        margin-bottom: 30px;
+    }
+    &__sabcath {
+        font-size: 1.75rem;
+        color: #fff;
+        span {
+            background: var.$sb_yellow;
+            padding: .25rem .5rem;
+            line-height: 2;
+        }
+    }
+    &__textArea {
+        flex: 1 1 50%;
+    }
+    &__bottomWave {
+        width: 100%;
+        height: 50px;
+    }
+    &__bottomWaveImg {
+        width: 100%;
+        height: 50px;
+        position: absolute;
+    }
+}
+
+/*----------------------------------------
+採用ステッキバナー
+----------------------------------------*/
+.recruitBanner {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    width: 50px;
+    height: 150px;
+    text-align: center;
+    border-radius: 5px 0 0 5px;
+    background: var.$sb_yellow;
+    color: #fff;
+    writing-mode: vertical-rl;
+    z-index: 999;
+    letter-spacing: .3em;
+    transform: translateY(-50%);
+    padding-right: 10px;
+}
+
+/*----------------------------------------
+ごあいさつ
+----------------------------------------*/
+.messageBlock {
+    display: flex;
+    align-items: center;
+    @include mix.section_padding();
+    &__imgArea {
+        flex: 1 1 520px;
+        margin-right: 40px;
+        @include mix.mq(var.$sm){
+            margin-right: 0px
+        }
+    }
+    @include mix.mq(var.$sm){
+        display: block;
+    }
+    &__textArea {
+        flex: 1 1.5 600px;
+        background: var.$bg_blue;
+        padding: 0 30px 30px;
+        background-image: url(../img/message_text_bg.jpg);
+    }
+    &__heading {
+        margin-top: -40px;
+        @include mix.mq(var.$sm){
+            margin-top: 15px;
+        }
+    }
+    p {
+        margin-top: 20px;
+    }
+}
+
+/*----------------------------------------
+service(私たちができること)
+----------------------------------------*/
+.serviceBlock {
+    background: var.$bg_blue;
+    @include mix.section_padding();
+    &__heading {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+}
+
+.serviceContent {
+    display: flex;
+    margin-top: 60px;
+    @include mix.mq (var.$sm) {
+        display: block;
+    }
+    &__textArea {
+        flex: 1 1.5 600px;
+        margin-right: 40px;
+        @include mix.mq(var.$sm){
+            margin-bottom: 30px;
+            margin-right: 0px;
+        }
+    }
+    &__heading {
+        font-size: 1.625rem;
+        color: var.$blue;
+        border-bottom: 1px solid var.$blue;
+        margin-bottom: 30px;
+    }
+    &__imgArea {
+        flex: 1 1 520px;
+    }
+    &__labels {
+        display: flex;
+        margin-top: 10px;
+    }
+    &__label {
+        margin-right: 10px;
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+}
+
+.serviceContent__reverse {
+    flex-direction: row-reverse;
+    .serviceContent__textArea {
+        margin-left: 40px;
+        margin-right: 0;
+        @include mix.mq(var.$sm) {
+            margin-left: 0px;
+        }
+    }
+}
+
+/*----------------------------------------
+colum(お役立ちコラム)
+----------------------------------------*/
+.columBlock {
+    @include mix.section_padding();
+    &__heading {
+        margin-bottom: 35px;
+    }
+    &__button {
+        text-align: center;
+    }
+}
+
+/*----------------------------------------
+pharmacy(店舗情報)
+----------------------------------------*/
+.shopBlock {
+    @include mix.section_padding($pt:0,$sm_pt:0);
+    &__heading {
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+    &__headingInner {
+        font-size: 1.5rem;
+        display: inline-block;
+        padding: 10px 55px;
+        background: var.$blue;
+        border: 1px solid #fff;
+        border-radius: 35px;
+        line-height: 1.3;
+        color: #fff;
+    }
+    &__headingLabel {
+        font-size: 0.875rem;
+    }
+    &__shopWrapper {
+        display: flex;
+        margin-top: -30px;
+        @include mix.mq (var.$lg) {
+            display: block;
+        }
+    }
+    &__shopItem {
+        flex: 1 1 50%;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.shopInfo {
+    border-radius: 0 0 0 60px;
+    overflow: hidden;
+    &__img {
+        width: 100%;
+    }
+    &__textArea {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        background: var.$bg_blue;
+        padding: 30px 30px 35px;
+    }
+    &__title {
+        font-weight: bold;
+        font-style: 1.375rem;
+        text-align: center;
+        margin-bottom: 30px;
+    } 
+    &__table {
+        margin-bottom: auto;
+    }
+    &__tableRow {
+        white-space: nowrap;
+        padding-right: 20px;
+        text-align: left;
+    }
+    &__tableHeader {
+        font-weight: bold;
+        padding-right: 35px;
+    }
+    &__tableDate {
+        font-size: 0.9375rem;
+    }
+    &__map {
+        margin: 30px 0;
+        position: relative;
+        &::before {
+            content: '';
+            display: block;
+            width: 100%;
+            padding-top: 56.25%;
+        }
+    }
+    &__mapInner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__LinkWrapper {
+        text-align: center;
+    }
+    @include mix.mq (var.$lg) {
+        border-radius:0;
+    }
+}
+
+.shopInfo_v2 {
+    border-radius: 0 0 60px 0;
+    .shopInfo__textArea {
+        background: var.$bg_yellow;
+    }
+    @include mix.mq(var.$sm){
+        border-radius: 0px;
+    }
+}
+
+/*----------------------------------------
+お知らせ(News)
+----------------------------------------*/
+.newsBlock {
+    &__heading {
+        margin-bottom: 30px;
+    }
+}
+
+.newsList {
+    list-style: none;
+    &__link {
+        display: flex;
+        align-items: flex-start;
+        padding: .8em 2px .3em;
+        border-bottom: 1px dashed #A7A7A7;
+        &:hover {
+            .newsList__title {
+                text-decoration: underline;
+            }
+        }
+    }
+    &__date {
+        margin-right: 25px;
+    }
+    &__label {
+        margin-right: 10px;
+        font-size: 0.8125rem;
+    }
+    &__LinkWrapper {
+        text-align: center;
+    }
+}
+
+/*----------------------------------------
+フッター
+----------------------------------------*/
+.footer {
+    background: var.$bg_blue;
+    margin-top: 60px;
+    padding: 30px 0;
+    &__title {
+        text-align: center;
+    }
+    &__navItem {
+        border-left: 1px solid var.$line_blue;
+        padding: 0 15px;
+        @include mix.mq(var.$sm){
+            border-left: 0;
+            padding: 10px 0px;
+        }
+        &:hover {
+            background: var.$line_blue;
+        }
+    }
+    &__shopList {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    &__shop {
+        line-height: 1.4;
+        text-align: center;
+        margin-right: 40px;
+        padding-right: 40px;
+        border-right: 1px solid var.$line_blue;
+        &:last-child {
+            margin-right: 0;
+            padding-right: 0;
+            border: none;
+        }
+    }
+    &__navList {
+        display: flex;
+        justify-content: center;
+        @include mix.mq(var.$sm){
+            display: block;
+        }
+    }
+    &__copyright {
+        text-align: center;
+        margin-top: 30px;
+    }
+}
+
+/*----------------------------------------
+サブページ_大見出し
+----------------------------------------*/
+.pageContentHeading {
+    font-size: 1.625rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+/*----------------------------------------
+サブページ_map
+----------------------------------------*/
+.accessMap {
+    position: relative;
+    margin-bottom: 20px;
+    &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        padding-top: 56.25%;
+    }
+    &__inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin-top: 30px;
+    }
+}
+
+/*----------------------------------------
+サブページ_shop
+----------------------------------------*/
+.shopGallery {
+    margin-top: 30px;
+
+    &__items {
+        display: flex;
+    }
+    &__item {
+        margin-right: 30px;
+        margin-bottom: 20px;
+        &:last-child {
+            margin-right: 0;
+        }
+        @include mix.mq (var.$sm){
+            margin-right: 10px;
+        }
+    }
+}
+
+/*----------------------------------------
+サブページ_サイドバー
+----------------------------------------*/
+.sidebar {
+    &__cards {
+        list-style: none;
+    }
+    &__card {
+        margin-top: 20px;
+    }
+}
